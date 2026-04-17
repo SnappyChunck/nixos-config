@@ -201,5 +201,10 @@
     recursive = true;
   };
 
+  xdg.configFile."DankMaterialShell" = {
+    source = ./DankMaterialShell;
+    recursive = true;
+  };
+
   home.stateVersion = "25.11";
 }
