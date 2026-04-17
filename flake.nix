@@ -28,8 +28,8 @@
             home-manager.users.fio = import ./home.nix;
         }
 	mango.nixosModules.mango
-        { 
-	    programs.mango.enable = true; 
+        {
+	    programs.mango.enable = true;
 	}
       ];
     };

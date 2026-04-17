@@ -180,5 +180,26 @@
     じしf_,)〳
   '';
 
+  home.pointerCursor = {
+    gtk.enable = true;
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Classic";
+    size = 24;
+  };
+
+  gtk = {
+    enable = true;
+    theme = {
+      name = "adw-gtk3-dark";
+      package = pkgs.adw-gtk3;
+    };
+    gtk4.theme = null;
+  };
+
+  xdg.configFile."mango" = {
+    source = ./mango;
+    recursive = true;
+  };
+
   home.stateVersion = "25.11";
 }

@@ -70,9 +70,14 @@
      git
      wget
      gcc
+     bibata-cursors
   ];
 
-  programs.dms-shell.enable = true;
+  programs.dconf.enable = true;
+  programs.dms-shell = {
+    enable = true;
+    systemd.enable = true;
+  };
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   environment.variables.EDITOR = "vim";
   fonts.packages = with pkgs; [ fira-code ];
