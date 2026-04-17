@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 {
   home.username = "fio";
@@ -12,6 +12,7 @@
     which
     nautilus
     curl
+    vesktop
   ];
 
   programs.zed-editor = {
@@ -26,6 +27,17 @@
       hour_format = "hour24";
       vim_mode = false;
     };
+  };
+
+  programs.spicetify = {
+    enable = true;
+    theme = inputs.spicetify-nix.legacyPackages.${pkgs.system}.themes.catppuccin;
+    colorScheme = "mocha";
+    enabledExtensions = with inputs.spicetify-nix.legacyPackages.${pkgs.system}.extensions; [
+      adblockify
+      hidePodcasts
+      shuffle
+    ];
   };
 
   programs.kitty = {
@@ -205,6 +217,7 @@
     source = ./DankMaterialShell;
     recursive = true;
   };
+
 
   home.stateVersion = "25.11";
 }
