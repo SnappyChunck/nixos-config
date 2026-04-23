@@ -63,6 +63,8 @@
 
   programs.firefox.enable = true;
 
+  programs.steam.enable = true;
+
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
@@ -71,6 +73,7 @@
      wget
      gcc
      bibata-cursors
+     xwayland-satellite
   ];
 
   programs.dconf.enable = true;
