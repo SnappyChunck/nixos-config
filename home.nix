@@ -4,9 +4,9 @@
   home.username = "fio";
   home.homeDirectory = "/home/fio";
 
-  xresources.properties = {
-    "Xcursor.size" = 16;
-  };
+  #xresources.properties = {
+  #  "Xcursor.size" = 16;
+  #};
 
   home.packages = with pkgs; [
     which
@@ -149,7 +149,7 @@
     plugins = [
       {
         name = "tide";
-        src = pkgs.fishPlugins.tide;
+        src = pkgs.fishPlugins.tide.src;
       }
     ];
 
