@@ -40,11 +40,12 @@
   console.keyMap = "de";
 
   services.displayManager.ly.enable = true;
-
+  services.gnome.gnome-keyring.enable = true;
   services.printing.enable = true;
-
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
+  services.udisks2.enable = true;
+
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -59,15 +60,19 @@
     extraGroups = [ "networkmanager" "wheel" ];
   };
 
-  services.udisks2.enable = true;
-  
   security.polkit.enable = true;
-
+  security.pam.services.ly.enableGnomeKeyring = true;
+  
+  programs.niri.enable = true;
   programs.fish.enable = true;
-
   programs.firefox.enable = true;
-
   programs.steam.enable = true;
+  programs.dconf.enable = true;
+
+  programs.dms-shell = {
+    enable = true;
+    systemd.enable = true;
+  };
 
   nixpkgs.config.allowUnfree = true;
 
@@ -76,21 +81,16 @@
      git
      wget
      gcc
+     killall
      bibata-cursors
      xwayland-satellite
      nautilus
      polkit_gnome
   ];
 
-  programs.dconf.enable = true;
-  programs.dms-shell = {
-    enable = true;
-    systemd.enable = true;
-  };
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   environment.variables.EDITOR = "vim";
   fonts.packages = with pkgs; [ fira-code ];
 
   system.stateVersion = "25.11";
-
 }
