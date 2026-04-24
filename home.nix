@@ -10,9 +10,12 @@
 
   home.packages = with pkgs; [
     which
-    nautilus
     curl
     vesktop
+    gnome-disk-utility
+    godot
+    papirus-icon-theme
+    (callPackage ./toofan.nix { })
   ];
 
   programs.git = {
@@ -21,6 +24,24 @@
       user.name = "SnappyChunck";
       user.email = "fionn.suephke@wirnet.de";
       url."git@github.com:".insteadOf = "https://github.com/";
+    };
+  };
+
+  systemd.user.services.polkit-gnome-authentication-agent-1 = {
+    Unit = {
+      Description = "polkit-gnome-authentication-agent-1";
+      Wants = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
+    };
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
+    Service = {
+      Type = "simple";
+      ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+      Restart = "on-failure";
+      RestartSec = 1;
+      TimeoutStopSec = 10;
     };
   };
 
@@ -213,6 +234,10 @@
     theme = {
       name = "adw-gtk3-dark";
       package = pkgs.adw-gtk3;
+    };
+    iconTheme = {
+      name = "Papirus";
+      package = pkgs.papirus-icon-theme;
     };
     gtk4.theme = null;
   };

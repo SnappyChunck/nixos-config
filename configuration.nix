@@ -59,6 +59,10 @@
     extraGroups = [ "networkmanager" "wheel" ];
   };
 
+  services.udisks2.enable = true;
+  
+  security.polkit.enable = true;
+
   programs.fish.enable = true;
 
   programs.firefox.enable = true;
@@ -74,6 +78,8 @@
      gcc
      bibata-cursors
      xwayland-satellite
+     nautilus
+     polkit_gnome
   ];
 
   programs.dconf.enable = true;
