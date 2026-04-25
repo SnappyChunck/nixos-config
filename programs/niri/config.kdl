@@ -1,6 +1,8 @@
 spawn-at-startup "systemctl" "--user" "import-environment" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
 spawn-at-startup "systemctl" "--user" "restart" "elephant"
 spawn-at-startup "systemctl" "--user" "restart" "walker"
+spawn-at-startup "waybar"
+
 
 input {
     keyboard {
@@ -88,8 +90,6 @@ layout {
         // bottom 64
     }
 }
-
-spawn-at-startup "waybar"
 
 hotkey-overlay {
     skip-at-startup
