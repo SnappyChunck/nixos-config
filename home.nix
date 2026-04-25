@@ -12,6 +12,7 @@
     ./programs/fastfetch.nix # Fastfetch
     ./programs/walker.nix # Walker application launcher
     ./programs/niri.nix #wm
+    ./programs/waybar.nix #bar
   ];
 
   home.username = "fio";

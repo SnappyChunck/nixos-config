@@ -64,7 +64,7 @@
     isNormalUser = true;
     description = "fio";
     shell = pkgs.fish;
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" "input" ];
   };
 
   security.polkit.enable = true;
