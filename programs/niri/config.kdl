@@ -62,7 +62,7 @@ layout {
 
     border {
         width 4
-        active-color "rgba(33ccffee)"//"#ffc87f"
+        active-color "rgba(33ccffee)" //"#ffc87f"
         inactive-color "rgba(595959aa)" //"#505050"
 
         //urgent-color "#9b0000"
