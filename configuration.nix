@@ -98,6 +98,12 @@
      polkit_gnome
   ];
 
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    config.common.default = "gtk";
+  };
+
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   environment.variables.EDITOR = "vim";
   fonts.packages = with pkgs; [

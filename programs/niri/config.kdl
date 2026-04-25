@@ -1,6 +1,5 @@
 spawn-at-startup "systemctl" "--user" "import-environment" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
-spawn-at-startup "systemctl" "--user" "restart" "elephant"
-spawn-at-startup "systemctl" "--user" "restart" "walker"
+spawn-at-startup "sh" "-c" "sleep 2 && systemctl --user restart elephant walker"
 spawn-at-startup "waybar"
 
 
@@ -20,7 +19,7 @@ input {
         // scroll-method "no-scroll"
     }
 
-    warp-mouse-to-focus
+    //warp-mouse-to-focus
 }
 
 output "DP-2" {
