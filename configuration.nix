@@ -37,6 +37,11 @@
     variant = "";
   };
 
+  services.xserver.excludePackages = [
+    pkgs.xterm
+    pkgs.khal
+  ];
+
   console.keyMap = "de";
 
   services.displayManager.ly.enable = true;
@@ -45,6 +50,8 @@
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.udisks2.enable = true;
+  services.spice-vdagentd.enable = true;
+  services.qemuGuest.enable = true;
 
   services.pipewire = {
     enable = true;
@@ -57,12 +64,15 @@
     isNormalUser = true;
     description = "fio";
     shell = pkgs.fish;
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
   };
 
   security.polkit.enable = true;
   security.pam.services.ly.enableGnomeKeyring = true;
-  
+
+  virtualisation.libvirtd.enable = true;
+
+  programs.virt-manager.enable = true;
   programs.niri.enable = true;
   programs.fish.enable = true;
   programs.firefox.enable = true;
@@ -90,7 +100,10 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   environment.variables.EDITOR = "vim";
-  fonts.packages = with pkgs; [ fira-code ];
+  fonts.packages = with pkgs; [
+    fira-code
+    nerd-fonts.fira-code
+  ];
 
   system.stateVersion = "25.11";
 }

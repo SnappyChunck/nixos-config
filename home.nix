@@ -11,6 +11,7 @@
     ./programs/fish.nix # Fish shell
     ./programs/fastfetch.nix # Fastfetch
     ./programs/walker.nix # Walker application launcher
+    ./programs/niri.nix #wm
   ];
 
   home.username = "fio";
@@ -27,6 +28,8 @@
     nextcloud-client
     gnome-keyring
     libsecret
+    audacity
+    pavucontrol
     inputs.elephant.packages.${pkgs.stdenv.hostPlatform.system}.default
     (callPackage ./toofan.nix { })
   ];
