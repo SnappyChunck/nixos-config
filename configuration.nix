@@ -44,7 +44,11 @@
 
   console.keyMap = "de";
 
-  services.displayManager.ly.enable = true;
+  #services.displayManager.ly.enable = true;
+
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
+
   services.gnome.gnome-keyring.enable = true;
   services.printing.enable = true;
   services.pulseaudio.enable = false;
@@ -68,7 +72,7 @@
   };
 
   security.polkit.enable = true;
-  security.pam.services.ly.enableGnomeKeyring = true;
+  #security.pam.services.ly.enableGnomeKeyring = true;
 
   virtualisation.libvirtd.enable = true;
 
