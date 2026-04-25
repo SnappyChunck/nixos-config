@@ -31,6 +31,7 @@
     libsecret
     audacity
     pavucontrol
+    swaybg
     inputs.elephant.packages.${pkgs.stdenv.hostPlatform.system}.default
     (callPackage ./toofan.nix { })
   ];

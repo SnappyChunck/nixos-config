@@ -1,5 +1,6 @@
 spawn-at-startup "systemctl" "--user" "import-environment" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
 spawn-at-startup "sh" "-c" "sleep 2 && systemctl --user restart elephant walker"
+spawn-at-startup "swaybg" "-i" "/etc/nixos/wallpapers/sunset-lake.png" "-m" "fill"
 spawn-at-startup "waybar"
 
 
