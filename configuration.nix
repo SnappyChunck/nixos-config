@@ -13,7 +13,22 @@
 
   networking.hostName = "nixos";
 
-  networking.networkmanager.enable = true;
+  #networking.networkmanager.enable = true;
+
+  networking.wireless.iwd = {
+    enable = true;
+    settings = {
+      General = {
+        EnableNetworkConfiguration = true;
+      };
+      Network = {
+        EnableIPv6 = true;
+      };
+      Rank = {
+        BandModifier5GHz = "2.0";
+      };
+    };
+  };
 
   time.timeZone = "Europe/Berlin";
 
@@ -41,6 +56,14 @@
     pkgs.xterm
     pkgs.khal
   ];
+
+  #environment.etc."usr/share/wayland-sessions/niri-ly.desktop".text = ''
+  #  [Desktop Entry]
+  #  Name=Niri (Ly Fix)
+  #  Comment=Niri wrapper for Ly Display Manager
+  #  Exec=niri-ly
+  #  Type=Application
+  #'';
 
   console.keyMap = "de";
 
@@ -82,11 +105,12 @@
   programs.firefox.enable = true;
   programs.steam.enable = true;
   programs.dconf.enable = true;
+  services.flatpak.enable = true;
 
-  programs.dms-shell = {
-    enable = true;
-    systemd.enable = true;
-  };
+  #programs.dms-shell = {
+  #  enable = true;
+  #  systemd.enable = true;
+  #};
 
   nixpkgs.config.allowUnfree = true;
 
@@ -100,13 +124,22 @@
      xwayland-satellite
      nautilus
      polkit_gnome
+     iw
+     #(writeShellScriptBin "niri-ly" ''
+     #  export XDG_SESSION_TYPE=wayland
+     #  export XDG_SESSION_DESKTOP=niri
+     #  export XDG_CURRENT_DESKTOP=niri
+
+     #  if [ -f "$HOME/.profile" ]; then
+     #    . "$HOME/.profile"
+     #  fi
+
+     #  exec niri-session
+     #'')
   ];
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    config.common.default = "gtk";
-  };
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   environment.variables.EDITOR = "vim";

@@ -15,6 +15,62 @@
     ./programs/waybar.nix #bar
   ];
 
+  services.swaync.enable = true; # notifications
+
+  xdg.configFile."swaync/style.css".text = ''
+    * {
+      font-family: "FiraCode Nerd Font", monospace;
+      font-size: 14px;
+    }
+
+    .notification-row {
+      outline: none;
+    }
+
+    .notification {
+      background-color: alpha(#1a1b26, 0.95);
+      border: 2px solid #a9b1d6;
+      border-radius: 0px;
+      padding: 10px;
+      margin: 4px;
+      color: #a9b1d6;
+    }
+
+    .notification-content {
+      background: transparent;
+      padding: 6px;
+    }
+
+    .notification-default-action {
+      background: transparent;
+      border-radius: 0px;
+      color: #a9b1d6;
+    }
+
+    .notification-default-action:hover {
+      background-color: alpha(#7aa2f7, 0.15);
+    }
+
+    .summary {
+      color: #7aa2f7;
+      font-weight: bold;
+    }
+
+    .body {
+      color: #a9b1d6;
+    }
+
+    .close-button {
+      background-color: transparent;
+      color: #a9b1d6;
+      border: none;
+    }
+
+    .close-button:hover {
+      background-color: alpha(#7aa2f7, 0.15);
+    }
+  '';
+
   home.username = "fio";
   home.homeDirectory = "/home/fio";
 
@@ -32,6 +88,10 @@
     audacity
     pavucontrol
     swaybg
+    impala
+    btop
+    bluetui
+    keepassxc
     inputs.elephant.packages.${pkgs.stdenv.hostPlatform.system}.default
     (callPackage ./toofan.nix { })
   ];
@@ -72,15 +132,5 @@
       package = pkgs.papirus-icon-theme;
     };
     gtk4.theme = null;
-  };
-
-  xdg.configFile."mango" = {
-    source = ./mango;
-    recursive = true;
-  };
-
-  xdg.configFile."DankMaterialShell" = {
-    source = ./DankMaterialShell;
-    recursive = true;
   };
 }

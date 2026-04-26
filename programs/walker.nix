@@ -2,6 +2,46 @@
 {
   imports = [ inputs.walker.homeManagerModules.default ];
 
+  xdg.configFile."elephant/menus/power.toml".text = ''
+    name = "power"
+    name_pretty = "Power"
+
+    [[entries]]
+    text = "Shutdown"
+    icon = "system-shutdown-symbolic"
+    actions = { "shutdown" = "systemctl poweroff" }
+
+    [[entries]]
+    text = "Reboot"
+    icon = "system-reboot-symbolic"
+    actions = { "reboot" = "systemctl reboot" }
+
+    #[[entries]]
+    #text = "Suspend"
+    #icon = "weather-clear-night-symbolic"
+    #actions = { "suspend" = "systemctl suspend" }
+
+    [[entries]]
+    text = "Logout"
+    icon = "system-log-out-symbolic"
+    actions = { "logout" = "niri msg action quit" }
+  '';
+
+  xdg.configFile."elephant/menus/main.toml".text = ''
+    name = "main"
+    name_pretty = "Main"
+
+    [[entries]]
+    text = "Apps"
+    icon = "applications-all-symbolic"
+    actions = { "open" = "walker" }
+
+    [[entries]]
+    text = "Power"
+    icon = "system-shutdown-symbolic"
+    submenu = "power"
+  '';
+
   programs.walker = {
     enable = true;
     runAsService = true;

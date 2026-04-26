@@ -13,7 +13,7 @@ input {
         // off
         // natural-scroll
         // accel-speed 0.2
-        // accel-profile "flat"
+        accel-profile "flat"
         // scroll-method "no-scroll"
     }
 
@@ -110,6 +110,23 @@ window-rule {
 }
 
 window-rule {
+    match app-id="impala"
+    open-floating true
+}
+window-rule {
+    match app-id="btop"
+    open-floating true
+}
+window-rule {
+    match app-id="pavucontrol"
+    open-floating true
+}
+window-rule {
+    match app-id="bluetui"
+    open-floating true
+}
+
+window-rule {
     match app-id=r#"^org\.keepassxc\.KeePassXC$"#
     match app-id=r#"^org\.gnome\.World\.Secrets$"#
 
@@ -126,6 +143,10 @@ binds {
 
     Mod+Return hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Mod+Space hotkey-overlay-title="Run an Application: walker" { spawn "walker"; }
+    Mod+Alt+Space hotkey-overlay-title="Run an Application: walker" { spawn "walker" "-m" "menus:main"; }
+
+    Mod+Shift+B { spawn-sh "pkill waybar; waybar &"; }
+
     //Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
 
     Super+Alt+S allow-when-locked=true hotkey-overlay-title=null { spawn-sh "pkill orca || exec orca"; }
