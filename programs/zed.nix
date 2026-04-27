@@ -6,7 +6,7 @@
       theme = {
         mode = "system";
         #dark = "Catppuccin Mocha";
-        dark = "Tokyo Night Moon":
+        dark = "Tokyo Night Moon";
         light = "One Light";
       };
       hour_format = "hour24";
