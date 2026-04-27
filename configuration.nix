@@ -96,7 +96,7 @@
     isNormalUser = true;
     description = "fio";
     shell = pkgs.fish;
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" "input" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" "input" "dialout" "uucp" ];
   };
 
   security.polkit.enable = true;
@@ -131,6 +131,7 @@
      polkit_gnome
      iw
      playerctl
+     python3
      #(writeShellScriptBin "niri-ly" ''
      #  export XDG_SESSION_TYPE=wayland
      #  export XDG_SESSION_DESKTOP=niri

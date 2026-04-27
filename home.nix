@@ -93,6 +93,7 @@
     btop
     bluetui
     keepassxc
+    direnv
     inputs.elephant.packages.${pkgs.stdenv.hostPlatform.system}.default
     (callPackage ./toofan.nix { })
   ];

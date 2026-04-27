@@ -129,7 +129,7 @@
     "spacing": 17,
   },
   "custom/power": {
-    "format": "󰐥 ",
+    "format": " ",
     "on-click": "walker -m menus:power",
     "tooltip": false,
   },
