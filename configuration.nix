@@ -125,6 +125,7 @@
      nautilus
      polkit_gnome
      iw
+     playerctl
      #(writeShellScriptBin "niri-ly" ''
      #  export XDG_SESSION_TYPE=wayland
      #  export XDG_SESSION_DESKTOP=niri

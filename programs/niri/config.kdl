@@ -138,6 +138,10 @@ window-rule {
     clip-to-geometry true
 }
 
+debug {
+    honor-xdg-activation-with-invalid-serial
+}
+
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
