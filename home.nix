@@ -13,6 +13,7 @@
     ./programs/walker.nix # Walker application launcher
     ./programs/niri.nix #wm
     ./programs/waybar.nix #bar
+    ./programs/vscode.nix
   ];
 
   services.swaync.enable = true; # notifications

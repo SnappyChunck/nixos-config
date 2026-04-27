@@ -87,6 +87,11 @@
     pulse.enable = true;
   };
 
+  services.udev.packages = [
+    pkgs.platformio-core
+    pkgs.openocd
+  ];
+
   users.users.fio = {
     isNormalUser = true;
     description = "fio";
