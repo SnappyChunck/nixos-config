@@ -46,6 +46,11 @@
     LC_TIME = "en_US.UTF-8";
   };
 
+  environment.variables = {
+    XCURSOR_THEME = "Bibata-Modern-Classic";
+    XCURSOR_SIZE = "24";
+  };
+
   services.xserver.enable = true;
   services.xserver.xkb = {
     layout = "de";
@@ -91,6 +96,15 @@
     pkgs.platformio-core
     pkgs.openocd
   ];
+
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
+
+  nixpkgs.config.rocmSupport = true;
+
+  hardware.amdgpu.opencl.enable = true;
 
   users.users.fio = {
     isNormalUser = true;
