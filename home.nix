@@ -95,14 +95,10 @@
     keepassxc
     direnv
     bun
+    jetbrains.webstorm
     inputs.elephant.packages.${pkgs.stdenv.hostPlatform.system}.default
     (callPackage ./toofan.nix { })
   ];
-
-  programs.jetbrains-remote = {
-    enable = true;
-    ides = [ pkgs.jetbrains.webstorm ];
-  };
 
   systemd.user.services.polkit-gnome-authentication-agent-1 = {
     Unit = {
