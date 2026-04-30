@@ -116,6 +116,18 @@
   security.polkit.enable = true;
   #security.pam.services.ly.enableGnomeKeyring = true;
 
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      libx11
+      libxext
+      libxi
+      libxrender
+      libxtst
+      fontconfig
+    ];
+  };
+
   virtualisation.libvirtd.enable = true;
 
   programs.virt-manager.enable = true;

@@ -95,7 +95,8 @@
     keepassxc
     direnv
     bun
-    jetbrains.webstorm
+    jetbrains-toolbox
+    appimage-run
     inputs.elephant.packages.${pkgs.stdenv.hostPlatform.system}.default
     (callPackage ./toofan.nix { })
   ];

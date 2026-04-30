@@ -20,6 +20,11 @@ input {
     //warp-mouse-to-focus
 }
 
+environment {
+  XCURSOR_THEME "Bibata-Modern-Classic"
+  XCURSOR_SIZE "24"
+}
+
 output "DP-2" {
     mode "2560x1440@180.063"
     scale 1
