@@ -119,12 +119,36 @@
   programs.nix-ld = {
     enable = true;
     libraries = with pkgs; [
+      #webstorm
       libx11
       libxext
       libxi
       libxrender
       libxtst
       fontconfig
+
+      #helium
+      libxcb
+      libgbm
+      libxkbcommon
+      libXcomposite
+      libXdamage
+      libXfixes
+      libXrandr
+      glib
+      nss
+      nspr
+      atk
+      at-spi2-atk
+      cups
+      libdrm
+      dbus
+      mesa
+      gtk3
+      expat
+      pango
+      cairo
+      alsa-lib
     ];
   };
 
@@ -158,6 +182,10 @@
      iw
      playerctl
      python3
+     wine
+     gtk3
+     glib
+     #inputs.helium.packages.${system}.default
      #(writeShellScriptBin "niri-ly" ''
      #  export XDG_SESSION_TYPE=wayland
      #  export XDG_SESSION_DESKTOP=niri
