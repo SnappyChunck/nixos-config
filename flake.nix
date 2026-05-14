@@ -29,6 +29,11 @@
       url = "github:AlvaroParker/helium-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    durdraw = {
+      url = "github:cmang/durdraw";
+      flake = false;
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, mango, spicetify-nix, ... }@inputs: {

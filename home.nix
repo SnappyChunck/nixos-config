@@ -14,6 +14,7 @@
     ./programs/niri.nix #wm
     ./programs/waybar.nix #bar
     ./programs/vscode.nix
+    ./programs/sway.nix
   ];
 
   services.swaync.enable = true; # notifications
@@ -97,6 +98,9 @@
     bun
     jetbrains-toolbox
     appimage-run
+
+    autotiling-rs
+
     inputs.elephant.packages.${pkgs.stdenv.hostPlatform.system}.default
     (callPackage ./toofan.nix { })
   ];

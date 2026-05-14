@@ -62,6 +62,8 @@
     pkgs.khal
   ];
 
+  services.irqbalance.enable = true;
+
   #environment.etc."usr/share/wayland-sessions/niri-ly.desktop".text = ''
   #  [Desktop Entry]
   #  Name=Niri (Ly Fix)
@@ -72,10 +74,18 @@
 
   console.keyMap = "de";
 
-  #services.displayManager.ly.enable = true;
+  services.displayManager.ly = {
+    enable = true;
+    #settings = {
+    #  animate = true;
+    #  animation = "dur_file";
+    #  dur_path = "${./assets/blackhole.dur}";
+    #  dur_file = "${./assets/blackhole.dur}";
+    #};
+  };
 
-  services.displayManager.sddm.enable = true;
-  services.displayManager.sddm.wayland.enable = true;
+  #services.displayManager.sddm.enable = true;
+  #services.displayManager.sddm.wayland.enable = true;
 
   services.gnome.gnome-keyring.enable = true;
   services.printing.enable = true;
@@ -102,6 +112,25 @@
     enable32Bit = true;
   };
 
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+      xdg-desktop-portal-gnome
+    ];
+
+    config = {
+      niri = {
+        default = [ "gnome" "gtk" ];
+        "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
+        "org.freedesktop.impl.portal.Screenshot" = [ "gnome" ];
+        "org.freedesktop.impl.portal.ScreenCast" = [ "gnome" ];
+        "org.freedesktop.impl.portal.Background" = [ "gnome" ];
+        "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
+      };
+    };
+  };
+
   nixpkgs.config.rocmSupport = true;
 
   hardware.amdgpu.opencl.enable = true;
@@ -114,7 +143,7 @@
   };
 
   security.polkit.enable = true;
-  #security.pam.services.ly.enableGnomeKeyring = true;
+  security.pam.services.ly.enableGnomeKeyring = true;
 
   programs.nix-ld = {
     enable = true;
@@ -161,6 +190,8 @@
   programs.steam.enable = true;
   programs.dconf.enable = true;
   services.flatpak.enable = true;
+  programs.sway.enable = true;
+  programs.uwsm.enable = true;
 
   #programs.dms-shell = {
   #  enable = true;
@@ -169,7 +200,17 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = let
+    durdraw = pkgs.python3Packages.buildPythonPackage {
+      pname = "durdraw";
+      version = "latest";
+      src = inputs.durdraw;
+      format = "pyproject";
+      build-system = [ pkgs.python3Packages.setuptools ];
+      doCheck = false;
+    };
+    in with pkgs; [
+
      neovim
      git
      wget
@@ -185,6 +226,18 @@
      wine
      gtk3
      glib
+     durdraw
+
+     #Rust global
+     rustc
+     cargo
+     rust-analyzer
+     gcc
+
+     #Rust Projects
+     pkg-config
+     openssl.dev
+
      #inputs.helium.packages.${system}.default
      #(writeShellScriptBin "niri-ly" ''
      #  export XDG_SESSION_TYPE=wayland
@@ -198,6 +251,9 @@
      #  exec niri-session
      #'')
   ];
+
+  system.autoUpgrade.enable  = true;
+  system.autoUpgrade.allowReboot  = true;
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
