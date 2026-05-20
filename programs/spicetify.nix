@@ -2,9 +2,9 @@
 {
   programs.spicetify = {
     enable = true;
-    theme = inputs.spicetify-nix.legacyPackages.${pkgs.system}.themes.catppuccin;
+    theme = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system}.themes.catppuccin;
     colorScheme = "mocha";
-    enabledExtensions = with inputs.spicetify-nix.legacyPackages.${pkgs.system}.extensions; [
+    enabledExtensions = with inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system}.extensions; [
       adblockify
       hidePodcasts
       shuffle

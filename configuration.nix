@@ -25,8 +25,6 @@
 
   networking.hostName = "nixos";
 
-  #networking.networkmanager.enable = true;
-
   networking.wireless.iwd = {
     enable = true;
     settings = {
@@ -76,14 +74,6 @@
 
   services.irqbalance.enable = true;
 
-  #environment.etc."usr/share/wayland-sessions/niri-ly.desktop".text = ''
-  #  [Desktop Entry]
-  #  Name=Niri (Ly Fix)
-  #  Comment=Niri wrapper for Ly Display Manager
-  #  Exec=niri-ly
-  #  Type=Application
-  #'';
-
   console.keyMap = "de";
 
   services.displayManager.ly = {
@@ -95,9 +85,6 @@
     #  dur_file = "${./assets/blackhole.dur}";
     #};
   };
-
-  #services.displayManager.sddm.enable = true;
-  #services.displayManager.sddm.wayland.enable = true;
 
   services.gnome.gnome-keyring.enable = true;
   services.printing.enable = true;
@@ -226,11 +213,6 @@
   programs.sway.enable = true;
   programs.uwsm.enable = true;
 
-  #programs.dms-shell = {
-  #  enable = true;
-  #  systemd.enable = true;
-  #};
-
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages =
@@ -246,10 +228,9 @@
     in
     with pkgs;
     [
-
       r2modman
 
-      neovim
+      #neovim
       git
       wget
       gcc
@@ -289,19 +270,6 @@
 
       nixd
       nixfmt
-
-      #inputs.helium.packages.${system}.default
-      #(writeShellScriptBin "niri-ly" ''
-      #  export XDG_SESSION_TYPE=wayland
-      #  export XDG_SESSION_DESKTOP=niri
-      #  export XDG_CURRENT_DESKTOP=niri
-
-      #  if [ -f "$HOME/.profile" ]; then
-      #    . "$HOME/.profile"
-      #  fi
-
-      #  exec niri-session
-      #'')
     ];
 
   system.autoUpgrade.enable = true;
