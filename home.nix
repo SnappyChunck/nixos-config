@@ -15,6 +15,7 @@
     ./programs/waybar.nix #bar
     ./programs/vscode.nix
     ./programs/sway.nix
+    ./programs/obs.nix
   ];
 
   services.swaync.enable = true; # notifications
@@ -81,7 +82,8 @@
     curl
     vesktop
     gnome-disk-utility
-    godot
+    #godot
+    godot-mono
     papirus-icon-theme
     waybar
     nextcloud-client
@@ -98,8 +100,11 @@
     bun
     jetbrains-toolbox
     appimage-run
-
+    nheko
     autotiling-rs
+    thunderbird
+
+    vlc
 
     inputs.elephant.packages.${pkgs.stdenv.hostPlatform.system}.default
     (callPackage ./toofan.nix { })

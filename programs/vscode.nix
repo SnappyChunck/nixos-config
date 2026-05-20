@@ -3,18 +3,38 @@
   programs.vscode = {
     enable = true;
 
-    #package = pkgs.vscode.fhsWithPackages (ps: with ps; [
-    #  platformio
-    #]);
-
     profiles.default.extensions = with pkgs.vscode-extensions; [
       enkia.tokyo-night
-      #platformio.platformio
       ms-vscode.cpptools-extension-pack
+      geequlim.godot-tools
+      ms-dotnettools.csdevkit
+      ms-dotnettools.vscode-dotnet-runtime
+      jnoortheen.nix-ide
+      #dsobotta.godot-rust-vscode
     ];
 
-    #userSettings = {
-    #  "platformio-ide.useBuiltinPIOCore" = false;
-    #};
+    profiles.default.userSettings = {
+      "godotTools.editorPath.godot4" = "/etc/profiles/per-user/fio/bin/godot4.6-mono";
+
+      "workbench.secondarySideBar.defaultVisibility" = "hidden";
+
+      "chat.viewSessions.enabled" = true;
+
+      "nix.enableLanguageServer" = true;
+      "nix.serverPath" = "nixd";
+      "nix.serverSettings" = {
+        "nixd" = {
+          "formatting" = {
+            "command" = ["nixfmt"];
+          };
+          "options" = {
+            "home-manager" = {
+              "expr" = "(builtins.getFlake \"/etc/nixos\").nixosConfigurations.nixos.options.home-manager.users.type.functor.wrapped";
+            };
+          };
+        };
+      };
+    };
+    
   };
 }

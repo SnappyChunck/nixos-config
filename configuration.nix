@@ -1,13 +1,25 @@
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    ./hardware-configuration.nix
+  ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
+
+  boot.kernelModules = [ "v4l2loopback" ];
+
+  boot.extraModprobeConfig = ''
+    options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
+  '';
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
@@ -94,6 +106,7 @@
   services.udisks2.enable = true;
   services.spice-vdagentd.enable = true;
   services.qemuGuest.enable = true;
+  services.usbmuxd.enable = true;
 
   services.pipewire = {
     enable = true;
@@ -121,7 +134,10 @@
 
     config = {
       niri = {
-        default = [ "gnome" "gtk" ];
+        default = [
+          "gnome"
+          "gtk"
+        ];
         "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
         "org.freedesktop.impl.portal.Screenshot" = [ "gnome" ];
         "org.freedesktop.impl.portal.ScreenCast" = [ "gnome" ];
@@ -139,7 +155,14 @@
     isNormalUser = true;
     description = "fio";
     shell = pkgs.fish;
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" "input" "dialout" "uucp" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "libvirtd"
+      "input"
+      "dialout"
+      "uucp"
+    ];
   };
 
   security.polkit.enable = true;
@@ -178,6 +201,16 @@
       pango
       cairo
       alsa-lib
+
+      #Karlson
+      gtk2
+      gdk-pixbuf
+      freetype
+
+      icu
+
+      #virtual Cam
+      v4l-utils
     ];
   };
 
@@ -200,69 +233,96 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  environment.systemPackages = let
-    durdraw = pkgs.python3Packages.buildPythonPackage {
-      pname = "durdraw";
-      version = "latest";
-      src = inputs.durdraw;
-      format = "pyproject";
-      build-system = [ pkgs.python3Packages.setuptools ];
-      doCheck = false;
-    };
-    in with pkgs; [
+  environment.systemPackages =
+    let
+      durdraw = pkgs.python3Packages.buildPythonPackage {
+        pname = "durdraw";
+        version = "latest";
+        src = inputs.durdraw;
+        format = "pyproject";
+        build-system = [ pkgs.python3Packages.setuptools ];
+        doCheck = false;
+      };
+    in
+    with pkgs;
+    [
 
-     neovim
-     git
-     wget
-     gcc
-     killall
-     bibata-cursors
-     xwayland-satellite
-     nautilus
-     polkit_gnome
-     iw
-     playerctl
-     python3
-     wine
-     gtk3
-     glib
-     durdraw
+      r2modman
 
-     #Rust global
-     rustc
-     cargo
-     rust-analyzer
-     gcc
+      neovim
+      git
+      wget
+      gcc
+      killall
+      bibata-cursors
+      xwayland-satellite
+      nautilus
+      polkit_gnome
+      iw
+      playerctl
+      python3
+      #wine
+      gtk3
+      glib
+      durdraw
 
-     #Rust Projects
-     pkg-config
-     openssl.dev
+      #Rust global
+      rustc
+      cargo
+      rust-analyzer
+      gcc
 
-     #inputs.helium.packages.${system}.default
-     #(writeShellScriptBin "niri-ly" ''
-     #  export XDG_SESSION_TYPE=wayland
-     #  export XDG_SESSION_DESKTOP=niri
-     #  export XDG_CURRENT_DESKTOP=niri
+      #Rust Projects
+      pkg-config
+      openssl.dev
 
-     #  if [ -f "$HOME/.profile" ]; then
-     #    . "$HOME/.profile"
-     #  fi
+      dxvk
+      winetricks
 
-     #  exec niri-session
-     #'')
-  ];
+      ghidra-bin
 
-  system.autoUpgrade.enable  = true;
-  system.autoUpgrade.allowReboot  = true;
+      wineWow64Packages.stagingFull
+
+      blender
+
+      krita
+
+      nixd
+      nixfmt
+
+      #inputs.helium.packages.${system}.default
+      #(writeShellScriptBin "niri-ly" ''
+      #  export XDG_SESSION_TYPE=wayland
+      #  export XDG_SESSION_DESKTOP=niri
+      #  export XDG_CURRENT_DESKTOP=niri
+
+      #  if [ -f "$HOME/.profile" ]; then
+      #    . "$HOME/.profile"
+      #  fi
+
+      #  exec niri-session
+      #'')
+    ];
+
+  system.autoUpgrade.enable = true;
+  system.autoUpgrade.allowReboot = true;
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   environment.variables.EDITOR = "vim";
   fonts.packages = with pkgs; [
     fira-code
     nerd-fonts.fira-code
+  ];
+
+  nixpkgs.config.permittedInsecurePackages = [
+    # for nheko :(
+    "olm-3.2.16"
   ];
 
   system.stateVersion = "25.11";
