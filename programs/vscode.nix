@@ -10,6 +10,10 @@
       ms-dotnettools.csdevkit
       ms-dotnettools.vscode-dotnet-runtime
       jnoortheen.nix-ide
+      github.vscode-github-actions
+      ms-python.python
+      #kevinrose.vsc-python-indent
+      #bilelmoussaoui.flatpak-vscode
       #dsobotta.godot-rust-vscode
     ];
 

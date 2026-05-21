@@ -78,12 +78,46 @@
 
   services.displayManager.ly = {
     enable = true;
-    #settings = {
-    #  animate = true;
-    #  animation = "dur_file";
-    #  dur_path = "${./assets/blackhole.dur}";
-    #  dur_file = "${./assets/blackhole.dur}";
-    #};
+    settings = {
+      animation = "dur_file"; #"matrix"; #"dur_file";
+      dur_file_path = "/etc/nixos/assets/blackhole-smooth-240x67.dur"; #"/etc/nixos/assets/blackhole.dur";
+      full_color = true;
+
+      fg = "0x00FFFFFF";        # white text
+      border_fg = "0x00FFFFFF";
+    };
+  };
+
+  environment.etc."ly/startup.sh" = {
+    mode = "0755";
+    text = ''
+      #!/bin/sh
+      if [ "$TERM" = "linux" ]; then
+        BLACK="000000"
+        DARK_RED="D75F5F"
+        DARK_GREEN="87AF5F"
+        DARK_YELLOW="D7AF87"
+        DARK_BLUE="8787AF"
+        DARK_MAGENTA="BD53A5"
+        DARK_CYAN="5FAFAF"
+        LIGHT_GRAY="E5E5E5"
+        DARK_GRAY="2B2B2B"
+        RED="FF8C00"
+        GREEN="98E34D"
+        YELLOW="FFD700"
+        BLUE="7373C9"
+        MAGENTA="FF4500"
+        CYAN="44C9C9"
+        WHITE="FFFFFF"
+        COLORS="$BLACK $DARK_RED $DARK_GREEN $DARK_YELLOW $DARK_BLUE $DARK_MAGENTA $DARK_CYAN $LIGHT_GRAY $DARK_GRAY $RED $GREEN $YELLOW $BLUE $MAGENTA $CYAN $WHITE"
+        i=0
+        while [ $i -lt 16 ]; do
+          printf "\033]P%x%s" $i "$(echo "$COLORS" | cut -d ' ' -f$(( i + 1)))"
+          i=$(( i + 1 ))
+        done
+        clear
+      fi
+    '';
   };
 
   services.gnome.gnome-keyring.enable = true;
@@ -270,6 +304,19 @@
 
       nixd
       nixfmt
+
+      meson
+      ninja
+
+      gettext
+      desktop-file-utils
+      appstream
+      glib
+      glib.dev
+      blueprint-compiler
+      graphene
+      libxml2
+      pkg-config
     ];
 
   system.autoUpgrade.enable = true;
