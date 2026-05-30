@@ -30,6 +30,11 @@
       url = "github:cmang/durdraw";
       flake = false;
     };
+
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -38,6 +43,7 @@
       nixpkgs,
       home-manager,
       spicetify-nix,
+      rust-overlay,
       ...
     }@inputs:
     {
@@ -45,6 +51,7 @@
         specialArgs = { inherit inputs; };
         modules = [
           ./configuration.nix
+          { nixpkgs.overlays = [ rust-overlay.overlays.default ]; }
 
           home-manager.nixosModules.home-manager
           {

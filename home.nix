@@ -16,6 +16,7 @@
     ./programs/vscode.nix
     ./programs/sway.nix
     ./programs/obs.nix
+    ./programs/flameshot.nix
   ];
 
   services.swaync.enable = true; # notifications
@@ -105,6 +106,8 @@
     thunderbird
 
     vlc
+
+    kdePackages.kdenlive
 
     inputs.elephant.packages.${pkgs.stdenv.hostPlatform.system}.default
     (callPackage ./toofan.nix { })

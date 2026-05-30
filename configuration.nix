@@ -79,7 +79,7 @@
   services.displayManager.ly = {
     enable = true;
     settings = {
-      animation = "dur_file"; #"matrix"; #"dur_file";
+      animation = "matrix"; #"matrix"; #"dur_file";
       dur_file_path = "/etc/nixos/assets/blackhole-smooth-240x67.dur"; #"/etc/nixos/assets/blackhole.dur";
       full_color = true;
 
@@ -118,6 +118,11 @@
         clear
       fi
     '';
+  };
+
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
   };
 
   services.gnome.gnome-keyring.enable = true;
@@ -282,10 +287,16 @@
       durdraw
 
       #Rust global
-      rustc
-      cargo
-      rust-analyzer
+      #rustc
+      #cargo
+      #clippy
+      #rust-analyzer
+      #rustfmt
       gcc
+
+      (rust-bin.stable.latest.default.override {
+        extensions = [ "rust-src" "rust-analyzer" ];
+      })
 
       #Rust Projects
       pkg-config
