@@ -76,6 +76,24 @@
 
   console.keyMap = "de";
 
+
+  services.flatpak = {
+    enable = true;
+    uninstallUnmanaged = true;
+#
+    update.auto = {
+      enable = true;
+      onCalendar = "daily";
+    };
+
+    packages = [
+      "com.github.tchx84.Flatseal"
+      "com.unity.UnityHub"
+      "it.mijorus.gearlever"
+      "org.prismlauncher.PrismLauncher"
+    ];
+  };
+
   services.displayManager.ly = {
     enable = true;
     settings = {
@@ -248,7 +266,6 @@
   programs.firefox.enable = true;
   programs.steam.enable = true;
   programs.dconf.enable = true;
-  services.flatpak.enable = true;
   programs.sway.enable = true;
   programs.uwsm.enable = true;
 

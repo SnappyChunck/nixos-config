@@ -26,6 +26,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     durdraw = {
       url = "github:cmang/durdraw";
       flake = false;
@@ -35,11 +40,14 @@
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
   };
 
   outputs =
     {
       self,
+      nix-flatpak,
       nixpkgs,
       home-manager,
       spicetify-nix,
@@ -50,6 +58,8 @@
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
         modules = [
+          nix-flatpak.nixosModules.nix-flatpak
+
           ./configuration.nix
           { nixpkgs.overlays = [ rust-overlay.overlays.default ]; }
 

@@ -17,6 +17,7 @@
     ./programs/sway.nix
     ./programs/obs.nix
     ./programs/flameshot.nix
+    ./programs/zen.nix
   ];
 
   services.swaync.enable = true; # notifications
@@ -109,7 +110,12 @@
 
     kdePackages.kdenlive
 
+    libreoffice
+
+    inputs.helium.packages.${pkgs.stdenv.hostPlatform.system}.default
+
     inputs.elephant.packages.${pkgs.stdenv.hostPlatform.system}.default
+
     (callPackage ./toofan.nix { })
   ];
 
