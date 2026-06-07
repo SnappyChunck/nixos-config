@@ -23,7 +23,10 @@ input {
 environment {
   XCURSOR_THEME "Bibata-Modern-Classic"
   XCURSOR_SIZE "24"
+  XDG_PICTURES_DIR "$home/Pictures/Screenshots"
 }
+
+screenshot-path null
 
 output "DP-2" {
     mode "2560x1440@180.063"
@@ -99,7 +102,7 @@ hotkey-overlay {
 
 prefer-no-csd
 
-screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+//screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
 animations {
     // Uncomment to turn off all animations.
@@ -129,6 +132,13 @@ window-rule {
 window-rule {
     match app-id="bluetui"
     open-floating true
+}
+
+window-rule {
+    match app-id=r#"^com\.gabm\.satty$"#
+    open-floating true
+    min-width 730
+    min-height 300
 }
 
 window-rule {
@@ -176,6 +186,11 @@ binds {
     Mod+O repeat=false { toggle-overview; }
 
     Mod+w repeat=false { close-window; }
+
+    Mod+S            { spawn "niri-screenshot" "region"; }
+    Mod+Shift+S      { spawn "niri-screenshot" "window"; }
+    Mod+Ctrl+S       { spawn "niri-screenshot" "monitor-focused"; }
+    Mod+Ctrl+Shift+S { spawn "niri-screenshot" "monitor-all"; }
 
     Mod+Left  { focus-column-left; }
     Mod+Down  { focus-window-down; }
@@ -296,10 +311,6 @@ binds {
     Mod+Shift+V { switch-focus-between-floating-and-tiling; }
 
     //Mod+W { toggle-column-tabbed-display; } idk what that is
-
-    Print { screenshot; }
-    Ctrl+Print { screenshot-screen; }
-    Alt+Print { screenshot-window; }
 
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 

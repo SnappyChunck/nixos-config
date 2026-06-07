@@ -41,6 +41,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
   };
 
@@ -48,6 +53,7 @@
     {
       self,
       nix-flatpak,
+      vscode-extensions,
       nixpkgs,
       home-manager,
       spicetify-nix,
@@ -61,7 +67,7 @@
           nix-flatpak.nixosModules.nix-flatpak
 
           ./configuration.nix
-          { nixpkgs.overlays = [ rust-overlay.overlays.default ]; }
+          { nixpkgs.overlays = [ rust-overlay.overlays.default vscode-extensions.overlays.default ]; }
 
           home-manager.nixosModules.home-manager
           {

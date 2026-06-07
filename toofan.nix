@@ -8,7 +8,7 @@ buildGoModule rec {
     owner = "vyrx-dev";
     repo = "toofan";
     rev = "master";
-    hash = "sha256-oez6iev1sxel4dy4kAqRdhZstpttC1VMEysoP9QrcEc=";   
+    hash = "sha256-i615Ok6wY6oNYtYtwqrFsy9WnR06SceIcGsTxA+t9b8=";   
   };
 
   vendorHash = "sha256-YSjJ8NOL97hXZLnfGYIjoKmARv+gWOsv+5qkl9konnA=";

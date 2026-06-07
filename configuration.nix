@@ -255,6 +255,16 @@
 
       #virtual Cam
       v4l-utils
+
+      #spot
+      webkitgtk_4_1
+
+      gst_all_1.gstreamer
+      gst_all_1.gst-plugins-base
+      gst_all_1.gst-plugins-good
+      gst_all_1.gst-plugins-bad
+      gst_all_1.gst-plugins-ugly
+      gst_all_1.gst-libav
     ];
   };
 
@@ -345,6 +355,10 @@
       graphene
       libxml2
       pkg-config
+
+      webkitgtk_4_1
+
+      ffmpeg-full
     ];
 
   system.autoUpgrade.enable = true;

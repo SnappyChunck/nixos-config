@@ -1,5 +1,49 @@
 { config, pkgs, lib, inputs, ... }:
 
+let
+  dfr-screenshot = pkgs.writeShellApplication {
+    name = "niri-screenshot";
+    
+    runtimeInputs = with pkgs; [ 
+      grim 
+      slurp 
+      niri 
+      jq 
+      wl-clipboard 
+      satty 
+    ];
+
+    text = ''
+      set -o errexit
+      set -o pipefail
+      set -o nounset
+
+      MODE="''${1:-region}"
+
+      case "''${MODE}" in
+      region)
+        grim -g "$(slurp -d)" -
+        ;;
+      window)
+        niri msg action screenshot-window
+        sleep 0.5
+        wl-paste --type image/png
+        ;;
+      monitor-focused)
+        grim -o "$(niri msg --json focused-output | jq --raw-output .name)" -
+        ;;
+      monitor-all)
+        grim -
+        ;;
+      *)
+        # Bypassed Nix string issues by using standard bash backslashes for quotes
+        echo \""\''${MODE}"\" is not a supported, aborting! >&2
+        exit 1
+        ;;
+      esac | satty --filename - --output-filename "''${XDG_PICTURES_DIR}/screenshot-%+.png"
+    '';
+  };
+in
 {
   home.stateVersion = "25.11";
 
@@ -112,12 +156,34 @@
 
     libreoffice
 
+    grim
+    slurp
+    jq
+    #satty is installed
+
+    dfr-screenshot
+
+    wl-clipboard
+
     inputs.helium.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     inputs.elephant.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     (callPackage ./toofan.nix { })
   ];
+
+  programs.satty = {
+    enable = true;
+    settings = {
+      general = {
+        early-exit = true;
+        copy-command = "wl-copy --type image/png";
+        initial-tool = "brush";
+      };
+    };
+  };
+
+  home.enableNixpkgsReleaseCheck = false;
 
   systemd.user.services.polkit-gnome-authentication-agent-1 = {
     Unit = {
@@ -156,4 +222,6 @@
     };
     gtk4.theme = null;
   };
+
+  
 }
