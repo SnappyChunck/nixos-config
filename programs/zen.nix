@@ -37,6 +37,8 @@ in
     };
 
     profiles.default = {
+      sine.enable = true;
+
       settings = {
         "browser.tabs.groups.enabled" = true;
 
@@ -50,6 +52,14 @@ in
 
         "zen.welcome-screen.seen" = true;
         "zen.workspaces.continue-where-left-off" = true;
+
+        "browser.tabs.allow_transparent_browser" = true;
+
+        "zen.widget.linux.transparency" = true;
+
+        "nebula-disable-container-styling" = true;
+
+        "sine.engine.auto-update" = false;
       };
     };
   };

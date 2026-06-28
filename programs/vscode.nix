@@ -9,6 +9,7 @@
         ms-dotnettools.vscode-dotnet-runtime
       ]) ++
       (with pkgs.vscode-marketplace; [
+        bradlc.vscode-tailwindcss
         enkia.tokyo-night
         ms-vscode.cpptools-extension-pack
         geequlim.godot-tools
@@ -26,6 +27,8 @@
         gruntfuggly.todo-tree
         fill-labs.dependi
         dustypomerleau.rust-syntax
+        
+        tauri-apps.tauri-vscode
       ]);
 
     profiles.default.userSettings = {

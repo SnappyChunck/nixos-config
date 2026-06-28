@@ -149,8 +149,17 @@ window-rule {
 }
 
 window-rule {
+    match app-id=r#"^zen-twilight$"#
+
+    background-effect {
+        blur true
+    }
+}
+
+window-rule {
     geometry-corner-radius 0
     clip-to-geometry true
+    draw-border-with-background false
 }
 
 debug {

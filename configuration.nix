@@ -25,6 +25,8 @@
 
   networking.hostName = "nixos";
 
+  networking.networkmanager.enable = false;
+
   networking.wireless.iwd = {
     enable = true;
     settings = {
@@ -91,6 +93,7 @@
       "com.unity.UnityHub"
       "it.mijorus.gearlever"
       "org.prismlauncher.PrismLauncher"
+      "at.vintagestory.VintageStory"
     ];
   };
 
@@ -272,6 +275,18 @@
 
   programs.virt-manager.enable = true;
   programs.niri.enable = true;
+  
+  services.desktopManager.gnome.enable = true;
+
+  services.gnome.core-apps.enable = false;
+  services.gnome.core-developer-tools.enable = true;
+  services.gnome.games.enable = false;
+
+  environment.gnome.excludePackages = with pkgs; [
+    gnome-tour
+    gnome-user-docs
+  ];
+
   programs.fish.enable = true;
   programs.firefox.enable = true;
   programs.steam.enable = true;
@@ -296,6 +311,9 @@
     [
       r2modman
 
+      #dotnetCorePackages.dotnet_10
+      dotnetCorePackages.sdk_10_0
+
       #neovim
       git
       wget
@@ -304,6 +322,9 @@
       bibata-cursors
       xwayland-satellite
       nautilus
+
+      gnome-tweaks
+
       polkit_gnome
       iw
       playerctl
@@ -359,6 +380,10 @@
       webkitgtk_4_1
 
       ffmpeg-full
+
+      tree
+
+      p7zip
     ];
 
   system.autoUpgrade.enable = true;
