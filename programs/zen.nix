@@ -55,7 +55,7 @@ in
 
         "browser.tabs.allow_transparent_browser" = true;
 
-        "zen.widget.linux.transparency" = true;
+        "zen.widget.linux.transparency" = false;
 
         "nebula-disable-container-styling" = true;
 
