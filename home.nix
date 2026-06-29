@@ -62,7 +62,6 @@ in
     ./programs/obs.nix
     ./programs/flameshot.nix
     ./programs/zen.nix
-    ./programs/noctalia.nix
   ];
 
   services.swaync.enable = true; # notifications
