@@ -165,6 +165,8 @@ in
 
     wl-clipboard
 
+    wl-clip-persist
+
     meslo-lgs-nf
 
     inputs.helium.packages.${pkgs.stdenv.hostPlatform.system}.default
@@ -173,6 +175,23 @@ in
 
     (callPackage ./toofan.nix { })
   ];
+
+  systemd.user.services.wl-clip-persist = {
+    Unit = {
+      Description = "Wayland clipboard persistence";
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
+    };
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
+    Service = {
+      Type = "simple";
+      ExecStart = "${pkgs.wl-clip-persist}/bin/wl-clip-persist --clipboard regular";
+      Restart = "always";
+      RestartSec = 1;
+    };
+  };
 
   programs.satty = {
     enable = true;
