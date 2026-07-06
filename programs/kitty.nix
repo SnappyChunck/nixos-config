@@ -1,9 +1,11 @@
+{pkgs, ...}:
 {
   programs.kitty = {
     enable = true;
 
     font = {
       name = "Fira Code";
+      package = pkgs.fira-code;
       size = 11.0;
     };
 
@@ -17,7 +19,7 @@
 
       confirm_os_window_close = 0;
 
-      shell = "fish";
+      shell = "zsh"; #fish | zsh
 
       tab_bar_min_tabs = 1;
       tab_bar_edge = "bottom";
