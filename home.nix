@@ -165,6 +165,8 @@ in
 
     wl-clipboard
 
+    meslo-lgs-nf
+
     inputs.helium.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     inputs.elephant.packages.${pkgs.stdenv.hostPlatform.system}.default
@@ -223,5 +225,55 @@ in
     gtk4.theme = null;
   };
 
-  
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
+
+    oh-my-zsh = {
+      enable = true;
+      plugins = [
+        "git"
+        "z"
+        "sudo"
+      ];
+    };
+
+    plugins = [
+      {
+        name = "powerlevel10k";
+        src = pkgs.zsh-powerlevel10k;
+        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+      }
+      {
+        name = "powerlevel10k-config";
+        src = ./p10k-config;
+        file = "p10k.zsh";
+      }
+    ];
+
+    initContent = ''
+      fastfetch
+    '';
+
+    shellAliases = {
+      update = "sudo nixos-rebuild switch";
+      update-flake = "cd /etc/nixos/ && sudo nixos-rebuild switch --flake .";
+    };
+
+    #histSize = 10000;
+    #histFile = "$HOME/.zsh_history";
+    #setOptions = [
+    #  "HIST_IGNORE_ALL_DUPS"
+    #];
+
+    history = {
+      size = 10000;
+      path = "$HOME/.zsh_history";
+      ignoreAllDups = true;
+    };
+  };
+
+  #system.userActivationScripts.zshrc = "touch .zshrc";
 }

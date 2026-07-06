@@ -201,7 +201,7 @@
   users.users.fio = {
     isNormalUser = true;
     description = "fio";
-    shell = pkgs.fish;
+    shell = pkgs.zsh; #pkgs.fish;
     extraGroups = [
       "networkmanager"
       "wheel"
@@ -261,6 +261,10 @@
 
       #spot
       webkitgtk_4_1
+ 
+      qt6.qtbase
+      qt6.qttools
+      qtcreator
 
       gst_all_1.gstreamer
       gst_all_1.gst-plugins-base
@@ -355,7 +359,25 @@
 
       ghidra-bin
 
-      wineWow64Packages.stagingFull
+      wineWow64Packages.stable
+
+      winetricks
+      dxvk
+
+      cabextract 
+      p7zip 
+      yad
+      xrandr 
+      gnumeric 
+      coreutils 
+      lsb-release 
+      mesa-demos 
+      samba 
+      bc 
+      mokutil 
+      desktop-file-utils
+
+      gamescope
 
       blender
 
@@ -385,6 +407,8 @@
 
       p7zip
     ];
+
+  programs.zsh.enable = true;
 
   system.autoUpgrade.enable = true;
   system.autoUpgrade.allowReboot = true;
