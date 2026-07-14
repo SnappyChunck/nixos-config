@@ -1,10 +1,12 @@
 { inputs, pkgs, ... }:
 
 let
-  mkExtensions = builtins.mapAttrs (_: slug: {
-    install_url = "https://addons.mozilla.org/firefox/downloads/latest/${slug}/latest.xpi";
-    installation_mode = "force_installed";
-  });
+  mkExtensions = builtins.mapAttrs (
+    _: slug: {
+      install_url = "https://addons.mozilla.org/firefox/downloads/latest/${slug}/latest.xpi";
+      installation_mode = "force_installed";
+    }
+  );
 in
 {
   imports = [
@@ -42,8 +44,8 @@ in
       settings = {
         "browser.tabs.groups.enabled" = true;
 
-        "zen.view.use-single-toolbar"  = false;
-        "zen.tabs.vertical"            = true;
+        "zen.view.use-single-toolbar" = false;
+        "zen.tabs.vertical" = true;
 
         "browser.startup.page" = 3;
         "browser.tabs.warnOnClose" = false;
@@ -60,6 +62,8 @@ in
         "nebula-disable-container-styling" = true;
 
         "sine.engine.auto-update" = false;
+
+        "zen.window-sync.enabled" = false;
       };
     };
   };

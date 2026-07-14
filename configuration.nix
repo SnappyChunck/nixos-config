@@ -78,11 +78,10 @@
 
   console.keyMap = "de";
 
-
   services.flatpak = {
     enable = true;
     uninstallUnmanaged = true;
-#
+    #
     update.auto = {
       enable = true;
       onCalendar = "daily";
@@ -94,17 +93,18 @@
       "it.mijorus.gearlever"
       "org.prismlauncher.PrismLauncher"
       "at.vintagestory.VintageStory"
+      "net.davidotek.pupgui2"
     ];
   };
 
   services.displayManager.ly = {
     enable = true;
     settings = {
-      animation = "matrix"; #"matrix"; #"dur_file";
-      dur_file_path = "/etc/nixos/assets/blackhole-smooth-240x67.dur"; #"/etc/nixos/assets/blackhole.dur";
+      animation = "matrix"; # "matrix"; #"dur_file";
+      dur_file_path = "/etc/nixos/assets/blackhole-smooth-240x67.dur"; # "/etc/nixos/assets/blackhole.dur";
       full_color = true;
 
-      fg = "0x00FFFFFF";        # white text
+      fg = "0x00FFFFFF"; # white text
       border_fg = "0x00FFFFFF";
     };
   };
@@ -201,7 +201,7 @@
   users.users.fio = {
     isNormalUser = true;
     description = "fio";
-    shell = pkgs.zsh; #pkgs.fish;
+    shell = pkgs.zsh; # pkgs.fish;
     extraGroups = [
       "networkmanager"
       "wheel"
@@ -261,7 +261,7 @@
 
       #spot
       webkitgtk_4_1
- 
+
       qt6.qtbase
       qt6.qttools
       qtcreator
@@ -279,7 +279,7 @@
 
   programs.virt-manager.enable = true;
   programs.niri.enable = true;
-  
+
   services.desktopManager.gnome.enable = true;
 
   services.gnome.core-apps.enable = false;
@@ -347,7 +347,10 @@
       gcc
 
       (rust-bin.stable.latest.default.override {
-        extensions = [ "rust-src" "rust-analyzer" ];
+        extensions = [
+          "rust-src"
+          "rust-analyzer"
+        ];
       })
 
       #Rust Projects
@@ -364,17 +367,17 @@
       winetricks
       dxvk
 
-      cabextract 
-      p7zip 
+      cabextract
+      p7zip
       yad
-      xrandr 
-      gnumeric 
-      coreutils 
-      lsb-release 
-      mesa-demos 
-      samba 
-      bc 
-      mokutil 
+      xrandr
+      gnumeric
+      coreutils
+      lsb-release
+      mesa-demos
+      samba
+      bc
+      mokutil
       desktop-file-utils
 
       gamescope
@@ -406,6 +409,11 @@
       tree
 
       p7zip
+
+      lact
+
+      protonup-qt
+      mangohud
     ];
 
   programs.zsh.enable = true;
@@ -430,6 +438,12 @@
     # for nheko :(
     "olm-3.2.16"
   ];
+
+  hardware.amdgpu.overdrive.enable = true;
+  services.lact.enable = true;
+
+  systemd.packages = with pkgs; [ lact ];
+  systemd.services.lactd.wantedBy = [ "multi-user.target" ];
 
   system.stateVersion = "25.11";
 }

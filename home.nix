@@ -1,16 +1,22 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 
 let
   dfr-screenshot = pkgs.writeShellApplication {
     name = "niri-screenshot";
-    
-    runtimeInputs = with pkgs; [ 
-      grim 
-      slurp 
-      niri 
-      jq 
-      wl-clipboard 
-      satty 
+
+    runtimeInputs = with pkgs; [
+      grim
+      slurp
+      niri
+      jq
+      wl-clipboard
+      satty
     ];
 
     text = ''
@@ -55,8 +61,8 @@ in
     ./programs/fish.nix # Fish shell
     ./programs/fastfetch.nix # Fastfetch
     ./programs/walker.nix # Walker application launcher
-    ./programs/niri.nix #wm
-    ./programs/waybar.nix #bar
+    ./programs/niri.nix # wm
+    ./programs/waybar.nix # bar
     ./programs/vscode.nix
     ./programs/sway.nix
     ./programs/obs.nix
@@ -294,5 +300,23 @@ in
     };
   };
 
-  #system.userActivationScripts.zshrc = "touch .zshrc";
+  programs.helix = {
+    enable = true;
+    settings = {
+      theme = "catppuccin_mocha";
+      editor.cursor-shape = {
+        normal = "block";
+        insert = "bar";
+        select = "underline";
+      };
+    };
+    languages.language = [
+      {
+        name = "nix";
+        auto-format = true;
+        formatter.command = lib.getExe pkgs.nixfmt;
+      }
+    ];
+  };
+
 }

@@ -4,6 +4,8 @@ spawn-at-startup "waybar"
 input {
     keyboard {
         xkb {
+            layout "de"
+            options "caps:escape"
         }
 
         numlock
