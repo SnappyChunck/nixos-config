@@ -285,6 +285,7 @@ in
     shellAliases = {
       update = "sudo nixos-rebuild switch";
       update-flake = "cd /etc/nixos/ && sudo nixos-rebuild switch --flake .";
+      garbage = "sudo nix-collect-garbage -d";
     };
 
     #histSize = 10000;
