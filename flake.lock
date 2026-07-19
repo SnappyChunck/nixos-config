@@ -197,6 +197,54 @@
         "type": "github"
       }
     },
+    "plugin-forest": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1783948657,
+        "narHash": "sha256-kQox4neRkJg5te6bbozur3/TW4m7u3VrPrZI3jE985k=",
+        "owner": "Ra77a3l3-jar",
+        "repo": "forest.hx",
+        "rev": "76f539932e78f3f7c6627379c9ca46dc8482128f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Ra77a3l3-jar",
+        "repo": "forest.hx",
+        "type": "github"
+      }
+    },
+    "plugin-glyph": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1783518581,
+        "narHash": "sha256-oAdU9nRKRMkxORE2C3rrzuT5B2c0eIttfFGf/2e57s4=",
+        "owner": "Ra77a3l3-jar",
+        "repo": "glyph.hx",
+        "rev": "12972747ac56ed60dc721b870367180875120308",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Ra77a3l3-jar",
+        "repo": "glyph.hx",
+        "type": "github"
+      }
+    },
+    "plugin-notify": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1774848700,
+        "narHash": "sha256-shKUVnJw2j0yYO+mTHsKie+d1VrJGWDTRul+PTpqlhs=",
+        "owner": "chuwy",
+        "repo": "notify.hx",
+        "rev": "0a328073e6d3e5041346374ae747c275ab8ce746",
+        "type": "github"
+      },
+      "original": {
+        "owner": "chuwy",
+        "repo": "notify.hx",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "durdraw": "durdraw",
@@ -205,6 +253,9 @@
         "home-manager": "home-manager",
         "nix-flatpak": "nix-flatpak",
         "nixpkgs": "nixpkgs_2",
+        "plugin-forest": "plugin-forest",
+        "plugin-glyph": "plugin-glyph",
+        "plugin-notify": "plugin-notify",
         "rust-overlay": "rust-overlay",
         "spicetify-nix": "spicetify-nix",
         "vscode-extensions": "vscode-extensions",

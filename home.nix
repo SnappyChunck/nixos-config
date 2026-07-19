@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   lib,
   inputs,
@@ -180,6 +179,8 @@ in
     inputs.elephant.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     (callPackage ./toofan.nix { })
+
+    kdePackages.neochat
   ];
 
   systemd.user.services.wl-clip-persist = {
@@ -301,8 +302,23 @@ in
     };
   };
 
+  xdg.dataFile."steel/cogs/forest".source = inputs.plugin-forest;
+  xdg.dataFile."steel/cogs/notify".source = inputs.plugin-notify;
+  xdg.dataFile."steel/cogs/glyph".source = inputs.plugin-glyph;
+
+  xdg.configFile."helix/init.scm".text = ''
+    (require "forest/forest.scm")
+
+    (require "notify/notify.scm")
+
+    (require "glyph/glyph.scm")
+  '';
+
   programs.helix = {
     enable = true;
+
+    package = pkgs.helix;
+
     settings = {
       theme = "catppuccin_mocha";
       editor.cursor-shape = {

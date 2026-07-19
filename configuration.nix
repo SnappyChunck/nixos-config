@@ -414,6 +414,12 @@
 
       protonup-qt
       mangohud
+
+      lutris
+
+      adwaita-icon-theme
+
+      sqlitebrowser
     ];
 
   programs.zsh.enable = true;
@@ -437,6 +443,44 @@
   nixpkgs.config.permittedInsecurePackages = [
     # for nheko :(
     "olm-3.2.16"
+  ];
+
+  nixpkgs.overlays = [
+    (_: prev: {
+      openldap = prev.openldap.overrideAttrs {
+        doCheck = !prev.stdenv.hostPlatform.isi686;
+      };
+    })
+
+    (final: prev: {
+      steelix = prev.steelix.overrideAttrs (oldAttrs: {
+        outputs = prev.helix-unwrapped.outputs;
+        postPatch = prev.helix-unwrapped.postPatch;
+        postBuild = prev.helix-unwrapped.postBuild;
+        postInstall = prev.helix-unwrapped.postInstall;
+        nativeBuildInputs = prev.helix-unwrapped.nativeBuildInputs;
+
+        env = {
+          HELIX_DISABLE_AUTO_GRAMMAR_BUILD = "1";
+          HELIX_DEFAULT_RUNTIME =
+            let
+              defaultRuntimeDir = final.runCommand "helix-default-runtime" { } ''
+                cp -r --no-preserve=mode ${oldAttrs.src}/runtime $out
+                rm -rf $out/grammars $out/queries
+              '';
+            in
+            defaultRuntimeDir;
+        };
+      });
+
+      helix =
+        (prev.helix.override {
+          helix-unwrapped = final.steelix;
+        }).overrideAttrs
+          (oldAttrs: {
+            paths = oldAttrs.paths ++ [ final.steel ];
+          });
+    })
   ];
 
   hardware.amdgpu.overdrive.enable = true;

@@ -47,6 +47,21 @@
     };
 
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+    #Helix plugins
+    plugin-forest = {
+      url = "github:Ra77a3l3-jar/forest.hx";
+      flake = false;
+    };
+
+    plugin-notify = {
+      url = "github:chuwy/notify.hx";
+      flake = false;
+    };
+
+    plugin-glyph = {
+      url = "github:Ra77a3l3-jar/glyph.hx";
+      flake = false;
+    };
   };
 
   outputs =
@@ -67,7 +82,12 @@
           nix-flatpak.nixosModules.nix-flatpak
 
           ./configuration.nix
-          { nixpkgs.overlays = [ rust-overlay.overlays.default vscode-extensions.overlays.default ]; }
+          {
+            nixpkgs.overlays = [
+              rust-overlay.overlays.default
+              vscode-extensions.overlays.default
+            ];
+          }
 
           home-manager.nixosModules.home-manager
           {
